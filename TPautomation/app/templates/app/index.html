@@ -9,42 +9,6 @@
 </div>
 
 <div class="row">
-    <table>
-        <thead>
-            <tr>
-                <th>company_name_zh</th>
-                <th>company_name_en</th>
-                <th>report_year</th>
-                <th>setup_year</th>
-                <th>setup_place</th>
-                <th>business</th>
-                <th>organization_chart</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for rep in all_reports %}
-            <tr>
-                <td>{{ rep.company_name_zh }}</td>
-                <td>{{ rep.company_name_en }}</td>
-                <td>{{ rep.report_year }}</td>
-                <td>{{ rep.setup_year }}</td>
-                <td>{{ rep.setup_place }}</td>
-                <td>{{ rep.business }}</td>
-                <td>{{ rep.organization_chart }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
-from .models import Report
 
 from django.http import HttpRequest
 from datetime import datetime
@@ -45,15 +44,10 @@ def about(request):
 
 def index(request):
     assert isinstance(request, HttpRequest)
-    try:
-        all_reports = Report.objects.all()
-        res_data ={
-                'title':'Home',
-                'year':datetime.now().year,
-                'all_reports': all_reports,
-            }
-    except all_reports.DoesNotExist:
-        raise Http404("all_reports does not exist")
+    res_data ={
+            'title':'Home',
+            'year':datetime.now().year,
+        }
     return render(request, 'app/index.html', res_data)
 
 def login(request, redirect_to):

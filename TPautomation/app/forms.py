@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
 class SignUpForm(forms.Form):
-    first_name = forms.CharField(label='公司名稱')
+    first_name = forms.CharField(label='用戶名稱')
     username = forms.CharField(label='帳號')
     password = forms.CharField(widget=forms.PasswordInput, label='密碼')
     password_check = forms.CharField(widget=forms.PasswordInput, label='密碼確認')
@@ -20,7 +20,7 @@ class SignUpForm(forms.Form):
             raise forms.ValidationError("此信箱已經註冊!")
         first_name_count = User.objects.filter(first_name=self.cleaned_data['first_name']).count()
         if first_name_count>0:
-            raise forms.ValidationError("此公司名稱已經註冊!")
+            raise forms.ValidationError("此用戶名稱已經註冊!")
         if self.cleaned_data['password'] != self.cleaned_data['password_check']:
             raise forms.ValidationError("輸入帳號與確認帳號不一致!")
 
