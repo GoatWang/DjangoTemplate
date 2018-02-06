@@ -21,7 +21,7 @@
         "smtp_host":"<寄申請帳號確認信件要使用的SMTP HOST>",
         "smtp_username":"",
         "smtp_password":""
-        "smtp_from":"<記件信箱位置>" #例如: "XXXX有限公司<xxxx@gmail.com>"
+        "smtp_from":"<寄件信箱位置>" #例如: "XXXX有限公司<xxxx@gmail.com>"
     }
     ```    
 
