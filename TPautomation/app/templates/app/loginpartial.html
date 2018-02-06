@@ -1,11 +1,12 @@
 {% if user.is_authenticated %}
-<form id="logoutForm" action="/logout" method="post" class="navbar-right">
+<form id="logoutForm" action="/logout/" method="post" class="navbar-right">
     {% csrf_token %}
     <ul class="nav navbar-nav navbar-right">
         <li><span class="navbar-brand">您好，{{ user.first_name }} !</span></li>
         {% if user.is_staff %}
-        <li><a href="{% url 'admin:index' %}">管理</a></li>
+        <li><a href="{% url 'admin:index' %}">後台管理</a></li>
         {% endif %}
+        <li><a href="{% url 'management' %}">帳戶管理</a></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
     </ul>
 
@@ -14,7 +15,7 @@
 {% else %}
 
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="{% url 'login' redirect_to=request.path %}">登入</a></li>
+    <li><a href="{% url 'login' %}">登入</a></li>
     <li><a href="{% url 'signup'%}">註冊</a></li>
 </ul>
 

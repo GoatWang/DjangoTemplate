@@ -1,0 +1,119 @@
+{% extends "app/layout.html" %}
+{% block styles %}
+<style>
+    h4{
+        margin-top: 30px
+    }
+    input[readonly]{
+        background-color:transparent;
+        border: 0;
+        font-size: 1em;
+      }
+    .errorlist {
+        color:red
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<h2>{{ title }}</h2>
+<div class="row">
+    <div class="col-md-10">
+        <form action="." method="post">
+            {% csrf_token %}
+            <h4>基本資訊</h4>
+            <hr />
+            <div class="form-group row">
+                <label for="{{ basic_form.first_name.id_for_label }}" class="col-sm-2 col-form-label">{{ basic_form.first_name.label }}</label>
+                <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" name="{{ basic_form.first_name.html_name }}" id="{{ basic_form.first_name.id_for_label }}" value="{{ basic_form.first_name.value }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ basic_form.username.id_for_label }}" class="col-sm-2 col-form-label">{{ basic_form.username.label }}</label>
+                <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" name="{{ basic_form.username.html_name }}" id="{{ basic_form.username.id_for_label }}" value="{{ basic_form.username.value }}">
+                </div>
+            </div>
+        </form>
+
+        <form action="/email_change/" method="post">
+            {% csrf_token %}
+            <h4>Email更改</h4>
+            <hr />
+            <ul class="errorlist">
+                {% for error in email_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}   
+            </ul>
+            <div class="form-group row">
+                {% for hidden in email_form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+            </div>
+            <div class="form-group row">
+                <label for="{{ email_form.email.id_for_label }}" class="col-sm-2 col-form-label">{{ email_form.email.label }}</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="{{ email_form.email.html_name }}" id="{{ email_form.email.id_for_label }}" value="{{ email_form.email.value }}">
+                    {{ email_form.email.errors }}
+                </div>
+                <div class="col-sm-6">
+                    <input type="submit" value="Email更改" class="btn btn-default" />
+                </div>
+            </div>
+        </form>
+
+        <form action="/password_change/" method="post">
+            {% csrf_token %}
+            <h4>密碼更改</h4>
+            <hr />
+            <ul class="errorlist">
+                {% for error in password_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}   
+            </ul>
+
+            <div class="form-group row">
+                {% for hidden in password_form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+            </div>
+            <div class="form-group row">
+                <label for="{{ password_form.ori_password.id_for_label }}" class="col-sm-2 col-form-label">{{ password_form.ori_password.label }}</label>
+                <div class="col-sm-4">
+                    <input type="password" class="form-control" name="{{ password_form.ori_password.html_name }}" id="{{ password_form.ori_password.id_for_label }}">
+                    {{ password_form.ori_password.errors }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ password_form.new_password.id_for_label }}" class="col-sm-2 col-form-label">{{ password_form.new_password.label }}</label>
+                <div class="col-sm-4">
+                    <input type="password" class="form-control" name="{{ password_form.new_password.html_name }}" id="{{ password_form.new_password.id_for_label }}">
+                    {{ password_form.new_password.errors }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ password_form.new_password_check.id_for_label }}" class="col-sm-2 col-form-label">{{ password_form.new_password_check.label }}</label>
+                <div class="col-sm-4">
+                    <input type="password" class="form-control" name="{{ password_form.new_password_check.html_name }}" id="{{ password_form.new_password_check.id_for_label }}">
+                    {{ password_form.new_password_check.errors }}
+                </div>
+                <div class="col-sm-6">
+                    <input type="submit" value="密碼更改" class="btn btn-default" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+<script>
+</script>
+{% endblock %}

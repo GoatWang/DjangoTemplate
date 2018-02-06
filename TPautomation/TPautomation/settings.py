@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import json
-
+from datetime import timedelta
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open(os.path.join(os.path.dirname(BASE_DIR), "pwd.json"), 'r', encoding='utf8') as f:
@@ -29,15 +29,45 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 #Email
 EMAIL_HOST = pwddata['smtp_host']
 EMAIL_HOST_USER = pwddata['smtp_username']
 EMAIL_HOST_PASSWORD = pwddata['smtp_password']
+DEFAULT_FROM_EMAIL=pwddata['smtp_from']
 EMAIL_PORT=25
 EMAIL_USE_TLS=True
 
-# Application definition
+#Axes
+MIDDLEWARE_CLASSES = (
+    'axes.middleware.FailedLoginMiddleware',
+)
+AXES_FAILURE_LIMIT=3
+# AXES_LOCK_OUT_AT_FAILURE=True
+AXES_COOLOFF_TIME=timedelta(minutes=1)
+AXES_LOCKOUT_TEMPLATE="app/message.html"
 
+
+# AUTH_PASSWORD_VALIDATORS
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 9,}
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+LOGIN_URL = "/app/login/"
+
+# Application definition
 INSTALLED_APPS = [
     'app.apps.AppConfig',
     'django.contrib.admin',
@@ -46,6 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'axes',
 ]
 
 MIDDLEWARE = [
