@@ -354,7 +354,7 @@ def no_validation_email(request):
                 'form':form, 
                 'year':datetime.now().year
             }
-        return render(request, 'app/forget_password.html', res_data)  
+        return render(request, 'app/no_validation_email.html', res_data)  
 
     if request.method == "POST":
         form = NoValidationEmailForm(request.POST)
@@ -389,6 +389,6 @@ def no_validation_email(request):
                     'form':form, 
                     'year':datetime.now().year
                 }
-            return render(request, 'app/forget_password.html', res_data)  
+            return render(request, 'app/no_validation_email.html', res_data)  
 
 
