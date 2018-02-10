@@ -1,3 +1,7 @@
+# 說明: 一個使用postgresql配上AWS SES服務，包含完整登入驗證流程，簡單網頁版面的模板。
+
+
+# Qick Start
 1. 建立虛擬環境，並啟動虛擬環境
     ```
     python -m virtualenv venv
@@ -10,7 +14,9 @@
     ```
     如果psycopg2裝不起來，windows請去[這裡](https://www.lfd.uci.edu/~gohlke/pythonlibs/)下載wheel檔進行安裝，如果是linux請參考[這裡](http://initd.org/psycopg/docs/install.html)
 
-3. 創建pwd.json檔案在DjangoTemplate目錄下，並輸入以下資訊
+3. 申請AWS SES寄信服務(用來處理登入驗證的問題)
+4. 創建PstgreSQL: 可以用本機端的也可以用AWS上的服務
+5. 創建pwd.json檔案在DjangoTemplate目錄下，並輸入以下資訊
     ```
     {
         "db_name":"<要連接的資料庫名稱>",
@@ -25,13 +31,13 @@
     }
     ```    
 
-4. 進去TPautomation資料夾=>設定初始資料庫=>創建superuser
+6. 進去TPautomation資料夾=>設定初始資料庫=>創建superuser
     ```
     cd TPautomation
     python manage.py migrate
     python manage.py createsuperuser
     ```
-5. 建立super user的First Name
+7. 建立super user的First Name
     ```
     python manage.py shell
     >>> from django.contrib.auth.models import User
@@ -40,7 +46,7 @@
     >>> u.save()
     ```
 
-6. 啟動網頁
+8. 啟動網頁
     ```
     python manage.py runserver
     ```
